@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f7fb" />
+  <title>Flowboard — organize anything</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Flowboard home"><span class="brand-mark"><i></i><i></i><i></i></span><span>flowboard</span></a>
+      <div class="workspace-label"><span class="workspace-avatar">S</span><span class="workspace-name">Studio workspace<small>Free plan</small></span><button class="icon-button workspace-menu" aria-label="Workspace menu">⌄</button></div>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <a href="#" class="nav-link"><span class="nav-icon">⌂</span> Home</a>
+        <a href="#" class="nav-link"><span class="nav-icon">◷</span> My tasks <span class="nav-count">4</span></a>
+        <a href="#" class="nav-link"><span class="nav-icon">⚙</span> Settings</a>
+      </nav>
+      <div class="section-heading"><span>YOUR WORKSPACES</span><button class="icon-button" id="addWorkspace" aria-label="Add workspace">＋</button></div>
+      <div class="workspace-nav"><span class="workspace-dot purple"></span> Studio workspace <span class="chevron">⌄</span></div>
+      <div class="section-heading boards-heading"><span>YOUR BOARDS</span><button class="icon-button" id="addBoard" aria-label="Create board">＋</button></div>
+      <div id="boardNav" class="board-nav"></div>
+      <div class="sidebar-bottom"><div class="upgrade-card"><div class="upgrade-spark">✦</div><strong>Make room for big ideas</strong><p>Unlock unlimited boards and more ways to collaborate.</p><button id="upgradeButton">Explore plans <span>↗</span></button></div><div class="profile"><div class="profile-avatar">JD</div><div class="profile-name">Jamie Davis<small>Personal account</small></div><button class="icon-button" aria-label="Profile menu">···</button></div></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar"><button class="icon-button mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button><div class="breadcrumbs">Studio workspace <span>/</span> <b id="crumbBoard">Product launch</b></div><div class="top-actions"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search cards..." aria-label="Search cards"/><kbd>⌘ K</kbd></label><button class="icon-button notification" aria-label="Notifications">♧<i></i></button><div class="top-avatar">JD</div></div></header>
+      <section class="board-page">
+        <div class="board-heading"><div><div class="board-title-row"><h1 id="boardTitle">Product launch</h1><button class="icon-button star-button" aria-label="Favorite board">☆</button><button class="icon-button board-menu" id="boardMenu" aria-label="Board options">···</button></div><p id="boardDescription">A little progress each day adds up to big results.</p></div><div class="board-tools"><div class="member-stack"><span class="member m1">JD</span><span class="member m2">MK</span><span class="member m3">AL</span><button class="member-add" aria-label="Invite member">＋</button></div><span class="tool-divider"></span><button class="tool-button" id="filterButton"><span>☷</span> Filter</button><button class="tool-button"><span>↗</span> Share</button></div></div>
+        <div class="board-meta"><div class="board-tabs"><button class="tab active"><span>▦</span> Board</button><button class="tab"><span>▤</span> Table</button><button class="tab"><span>▥</span> Calendar</button><button class="tab-add" aria-label="Add view">＋</button></div><div class="board-updated"><span class="live-dot"></span> <span id="boardUpdated">All changes saved</span></div></div>
+        <div id="boardCanvas" class="board-canvas" aria-label="Board lists"></div>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <dialog id="cardDialog" class="modal"><form method="dialog" id="cardForm"><div class="modal-head"><span class="modal-eyebrow">TASK DETAILS</span><button type="button" class="icon-button close-modal" aria-label="Close">×</button></div><input type="hidden" id="cardId"/><input type="hidden" id="cardListId"/><label class="field-label" for="cardName">Title</label><input class="text-field title-field" id="cardName" maxlength="100" required placeholder="What needs to get done?"/><label class="field-label" for="cardDescription">Description</label><textarea class="text-field" id="cardDescription" rows="4" placeholder="Add more details..."></textarea><div class="field-grid"><div><label class="field-label" for="cardLabel">Label</label><select class="text-field" id="cardLabel"><option value="">No label</option><option value="mint">Design</option><option value="blue">Development</option><option value="peach">Marketing</option><option value="pink">Research</option></select></div><div><label class="field-label" for="cardDue">Due date</label><input class="text-field" id="cardDue" type="date"/></div></div><div class="modal-actions"><button type="button" class="delete-button" id="deleteCard">Delete card</button><button class="primary-button" id="saveCard" value="save">Save changes</button></div></form></dialog>
+  <dialog id="listDialog" class="modal small-modal"><form method="dialog" id="listForm"><div class="modal-head"><span class="modal-eyebrow">NEW LIST</span><button type="button" class="icon-button close-modal" aria-label="Close">×</button></div><label class="field-label" for="listName">List name</label><input class="text-field title-field" id="listName" maxlength="50" required placeholder="e.g. In progress"/><div class="modal-actions"><span></span><button class="primary-button" value="save">Create list</button></div></form></dialog>
+  <dialog id="boardDialog" class="modal small-modal"><form method="dialog" id="boardForm"><div class="modal-head"><span class="modal-eyebrow">NEW BOARD</span><button type="button" class="icon-button close-modal" aria-label="Close">×</button></div><label class="field-label" for="newBoardName">Board name</label><input class="text-field title-field" id="newBoardName" maxlength="50" required placeholder="e.g. Website redesign"/><div class="modal-actions"><span></span><button class="primary-button" value="save">Create board</button></div></form></dialog>
+  <script src="app.js"></script>
+</body>
+</html>

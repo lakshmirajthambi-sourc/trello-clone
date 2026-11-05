@@ -1,0 +1,16 @@
+
+# Claude and Codex local settings
+.claude/
+.codex/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment secrets
+.env
+.env.*
+
+# Playwright test results
+test-results/
+playwright-report/
